@@ -1,0 +1,15 @@
+# Python virtual envs
+venv/
+.venv/
+env/
+ENV/
+
+# VS Code workspace settings (ignore by default)
+.vscode/
+
+# If you want to share only specific settings:
+# .vscode/*
+# !.vscode/settings.json
+
+# Also ignore env files with secrets
+.env
