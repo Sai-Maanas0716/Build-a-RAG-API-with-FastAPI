@@ -1,7 +1,17 @@
-
+import os
+import logging
 from fastapi import FastAPI
 import chromadb
 import ollama
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(message)s",
+)
+
+MODEL_NAME = os.getenv("MODEL_NAME", "tinyllama")
+logging.info(f"Using model: {MODEL_NAME}")
+
 
 app = FastAPI()
 chroma = chromadb.PersistentClient(path="./db")
@@ -11,10 +21,35 @@ collection = chroma.get_or_create_collection("docs")
 def query(q: str):
     results = collection.query(query_texts=[q], n_results=1)
     context = results["documents"][0][0] if results["documents"] else ""
-
     answer = ollama.generate(
-    model="tinyllama",
-    prompt=f"Context:\n{context}\n\nQuestion: {q}\n\nAnswer clearly and concisely:"
+        model=MODEL_NAME,
+        prompt=f"Context:\n{context}\n\nQuestion: {q}\n\nAnswer clearly and concisely:"
     )
-    
+
+    logging.info(f"/query asked: {q}")    
     return {"answer": answer["response"]}
+
+@app.post("/add")
+
+def add(text: str):
+    '''add data to the knowledge base dynamically'''
+    logging.info(f"/add received new text (id will be generated)")
+    try:
+        import uuid
+        doc_id = str(uuid.uuid4())
+        collection.add(documents=[text],ids=[doc_id])
+        return {
+            "status": "Success",
+            "message": "Content added to knowledge base",
+            "id": doc_id
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": str(e)
+        }
+
+@app.get("/health")
+
+def health():
+    return {"status": "ok"}
