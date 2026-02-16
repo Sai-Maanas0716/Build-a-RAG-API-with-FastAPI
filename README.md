@@ -1,127 +1,117 @@
 <img src="https://cdn.prod.website-files.com/677c400686e724409a5a7409/6790ad949cf622dc8dcd9fe4_nextwork-logo-leather.svg" alt="NextWork" width="300" />
 
-# Build a RAG API with FastAPI
+# Containerize a RAG API with Docker
 
-**Project Link:** [View Project](http://learn.nextwork.org/projects/ai-devops-api)
+**Project Link:** [View Project](http://learn.nextwork.org/projects/ai-devops-docker)
 
 **Author:** S Maanas  
 **Email:** smaanas03@gmail.com
 
 ---
 
-![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-api_g3h4i5j6)
+![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-docker_x7y8z9a0)
 
 ---
 
 ## Introducing Today's Project!
 
-In this project, I will demonstrate how to create our own RAG API with the help of FAST API which is a web framework that is used for building the api's easily. This RAG will retrieve the closer information regarding the user query by doing the semantic search between the embeddings of both query and the docs that are stored in the chroma database and then gives the docs to the llm through the template of the prompt and the llm generates the response by doing the summarization on the docs information. I'm doing this project to learn more about RAG and how to work with RAG and APIs that will help me in understanding the process of building the application which are build on llms.
+In this project, I will demonstrate how to containerize a RAG API with docker. I'm doing this project to learn how to make sure that the api that we have created called "RAG API" can be able to execute or to run on every device, not only on a single pc in which I have created through the docker container instance for delivery of api every where in every device.
 
 ### Key services and concepts
 
-Services I used were the cost free access of the models from ollama and uvicorn for running the api server for the vreation of the fastAPI instance or created from that which is RAG API integrated with the ollama tinyllama model and also swagger UI interface for testing the api endpoint directly in the browser, also the logging and os packages for the operations or the services to be logged so that the developers can know about when and is the api endpoint or the api is being called or not. Key concepts I learnt include how to play with fast api and how to create the different api endpoints for making this RAG API do more works than what we have done here and also how the model of ollama is being integrated into the api along with the accessing the data from the database (chromaDB) by doing the similarity search for the given query which is using the post method to submit the query to the api endpoint and the actual search of the data is being happen giving the nearest 1 document.
+Services I used were docker desktop for the local machine  to create the images for the application with the help of the docker file instructions and used the ollama client, created speacially for the docker to use the service from the docker container itself and also the uvicorn to run the fast api server behind the execution of the api that we have created and also the fast api python functionalities for the easy creation of the api functions or the endpoints. Key concepts I learnt include why docker is required and how the tag and pushing of the image of the app is done after creating the image, what makes pusing the image to the docker hub can make the deployment of the app through the cloud services easy or take it to reach this point, I have seen what makes the things go wrong when we run the commands. I have learned about how the tag to the images can actually help the docker hub and also the flow of instructions that can be executed using the docker file.
 
 ### Challenges and wins
 
-This project took me approximately two days to do. The most challenging part was to understand the workflow and the packages that I have used here. It was most rewarding to know how the api can be played with integration of the llm and how the actual api calls can answer the questions like real llm or real llm application interface can answer the user query with the loaded data  or the knowledge base that we have in the chromeDB.
+This project took me approximately 5 days to complete the entire thing. The most challenging part was debugging the internel server error which occurs when the ollama client don't run locally or haven't started ollama or it can when the docker container requests the ollama service but, the mapping of the special host created for ollama client to the original host ip configuration is not done or happens when the special redirect link to the original ollama client in the local host is not created. It was most rewarding when the app finally runs after debugging the error that I have faced and finally the request is being send and the response from the api is finally appearing in the terminal.
 
 ### Why I did this project
 
-I did this project because, I love to do the projects that related to RAG and how the api can be played along with them giving the actual response from the llm which is being integrated into the api endpoint method of api.
+I did this project because, I wanted to do deploy the app or the any kind of product that I have created so that I can be able to face the real problems like more users, more data and also the complex data that may cause the current implementation or the code that I have written for this app break and needs the better logic and the implementation that I'm currently using.
+
+want to see how the real data from the world causes the break in the current implementation.
 
 ---
 
-## Setting Up Python and Ollama
+## Setting Up the RAG API
 
-In this step, I'm setting up Python and Ollama. Python is a programming language that allows the programmers to build the web applications giving the required tools and the frameworks. Ollama is a llm which can be run locally in the personal computers of laptops. I need these tools because, to create the RAG API I need the frameworks available in the python through the fast api tools and the features which makes the building of this api very easy and also Ollama which helps me in generating the response after retrieving the documents by RAG.
+In this step, I'm setting up the workspace of RAG API and activate our venv, which was created for RAG API. The RAG API is one kind of api integrating the api functionaliies with ai response and searching through the documents in the knowledge base and retrieving the docs that are relevant to the query that user has asked through the api endpoint called /query in the browser url placeholder, where it does the semantic search using the embeddings that are directly created and stored in the chromaDB where the large docs will be broken down to chunks for to occupy the less space of the context window of the model that we are using through ollama.
 
-### Python and Ollama setup
+### API setup and workspace
 
-![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-api_i9j0k1l2)
+In this step, I'm creating the container for my RAG API so it to run in everyones devices. A virtual environment is the isolated environment in your computer, that allows the one who wants to run it separately without clashing of the current versions of the certain software with the global versions that were already  installed in the computer. I need it because, it will prevent from the python dependencies and it's versions clashing out with the global python dependencies and it's versions.
 
-### Verifying Python is working
+### Dependencies installed
 
-### Ollama and tinyllama ready
+The packages I installed are ollama, FastAPI, chromaDB and uvicorn. FastAPI is used for to build the api which means creating the api endpoints and the functionalities for that using the built-in functions which makes it easy to create using its frameworks available in the python language. Chroma is used for to store the knowledge base that llm uses to generate the response from the quesry asked by the users using the sematic search between the query embeddings and the embeddings that are indexed with the chunked data to save the context window space. Uvicorn is used for the api to run like a server that executes the api endpoints waiting for the query to be asked. Ollama is used for the llm to run in the local machine which it provides the interface or the ability to run those models locally without using the cloud models.
 
-Ollama is the local llm provider that allows the user to run llm's on their own laptop without using the cloud services of llm which will eventually run out of the free tier and some can be costly to use the api calls. I downloaded the tinyllama model because it is the open source and free and can be used any time and however we want. The model will help my RAG API by generating the response from whatever the retrieval of the docs it did through the semantic search for the query given by the user.
+![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-docker_c9d0e1f2)
 
----
+### Local API working
 
-## Setting Up a Python Workspace
+I tested that my API works by invoking the api requesting the query endpoint with the message that I want to ask. The local API responded with the set of keys and values with the answer in the content section along with the meta data of the response. This confirms that the api endpoint or the RAG API is completely working fine with no errors when asking the query to the api and no problem with the endpoint query or the model that we are working with to generate the response from the retrieved documents.
 
-In this step, I'm setting up the project and the required virtual environment and activate it for the project to keep the python dependensies safe and prevent the clashing of the python versions. I need it because, it is for to keep the python dependensies safe and prevent the clashing of the python versions.
-
-### Python workspace setup
-
-### Virtual environment
-
-A virtual environment is the separate environment that gives the  project runs it own codebase in the sepearate desktop kind of environment without clashing with the global packages. I created one for this project to do the same thing for the project where it the python dependiea of the ollama and fast api will be stored and executed in this virtual envirinment only. Once I activate it, it opens into the seperate environment from the global python depedencies like seperate executable desktop. To create a virtual environment, I use the python command - python -m venv .venv.
-
-### Dependencies
-
-The packages I installed are fast api, uvicorn, chromaDB, ollama. FastAPI is used for processing the requests by the user by giving the framework to access the particular endpoint that actually asks the RAG to retrive the docs using semantic search and generation of the reponse at the end. Chroma is used for storing the docs where the linkage of the doc chunks and the embeddings related to that resides for the semantic search between the user query and the docs that are there from the start in the database. Uvicorn is used for running the fast api which listens to the user http requests and converts them into the python calls and then forward those requests to the correct api endpoint and does the same thing when the rag genearates the response. Ollama is used for receiving the retrieved docs related to the query asked by the user and then summarizes the docs and gives the response back to the user using the human conversation template as data on which training has done.
-
-![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-api_u1v2w3x4)
+![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-docker_v5w6x7y8)
 
 ---
 
-## Setting Up a Knowledge Base
+## Installing Docker Desktop
 
-In this step, I'm creating the script that prepares the content for AI search. A knowledge base is a data hub that having the up to date information for the rag to work on this by converting the data into embeddings and does the semantic search given query and converting the query into embeddings. I need it because, giving this knowledge base for the rag to work on this by converting the data into embeddings and does the semantic search given query and converting the query into embeddings.
+### Docker Desktop setup
 
-### Knowledge base setup
+Docker Desktop is the interface where it gives the containerize feature for the our app. I installed it because, I need it for my app or RAG API to be deployed in the real world. Containerization will help my project by creating the container for the project or app or our RAG API and does the packaginf of all our dependencies required for the app to run in everyones devices, making the app available to everyone.
 
-![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-api_t1u2v3w4)
+### Docker verification
 
-### Embeddings created
+I verified Docker is working by running the bash command . The hello-world container proves that it is perfectly installed and working correctly.
 
-Embeddings are the ones that have the semantic meaning of the actual words listed in vectors and these are the ones that will allow the similarity search done by rag between the query embeddings and the embeddings that are stored in the database. I created them by using the bult-in function - add function given to the collections created by the client instantiated from the persistentClient, which can load the data as soon as it is available in the local machine. The db/ folder contains the documents and the embeddings of the chunks, broken down for the favour to the context window of the llm that we are going to get the response from the retrieved docs by RAG. This is important for RAG because, it is the only one that does the search for the answer or the related documents related to the query asked by the user and which is not there in the data which was used to train the model. So, this is required to get the up-to date data, where nowadays training data frequently can be expensive.
-
----
-
-## Building the RAG API
-
-In this step, I'm building a RAG API. An API is the interface where it lets the software retrieve and share data with other apps FastAPI is the web framework which will let me create the APIs very easily with the automated documentation for the api that I'm creating. I'm creating this because, I want the ai response from whatever the query might be related to the application that the user is using, so I want one api to retrieve the realated doucuments related to the query and then giving the response back to the user rather than just giving them the whole information and then making them to read it by themself .
-
-### FastAPI setup
-
-### How the RAG API works
-
-My RAG API works by first searching the data relevant to the query through the similarity search on the embeddings from whatever knowledge we have in chromaDB, then it retrieves the data or the docs from the search and lists the data and now it gives the context which is data from the retrieval and inserts into the prompt that we have created to generate the response through ollama tinyllama. So, at the end the ouput will be the ai response from RAG API about query asked by the user.
-
-![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-api_f3g4h5i6)
+![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-docker_i9j0k1l2)
 
 ---
 
-## Testing the RAG API
+## Creating the Dockerfile
 
-In this step, I'm testing my RAG API. I'll test it using swagger UI. Swagger UI is automatically generated,interactive documentation page for our FastAPI server. I'll use it to visually see my API's endpoints, what paprameters it is accepting and even to try them right from the browser.
+In this step, I'm building a RAG API. RAG stands for Retrieval augmented Generation. I'm creating files like embed.py for adding the embeddings of the documents to the knowledge so that the docs gets chunked and indexed with the emneddings so that RAG will do the sematic search between the query and the docs through the embeddings and gets the docs that are relevant to the query asked and then it uses llm to summarize the docs retrieved from the search. It reduces the hallucinations of the model.
 
-### Testing the API
+### How the Dockerfile works
 
-### API query breakdown
+A Dockerfile is a text file with the instructions to create the docker image. It specifies the bsae image, install the packages and the dependencies, copies the code and defines how to run your app. The key instructions in my Dockerfile are : it starts with the python 3.11 and then it sets the working directory to /app and then it installs the system dependencies (curl) and copies the code of your codebase and then it installs the packages required for the app to run and then it pre-computes the embeddings required to do the sematic search, then it exposes the port and then it will start the api server. FROM tells Docker to start with the python 3.11. COPY is used for to copy the code files. RUN executes the embeddings python file CMD defines the instructions and the commands to start the api server at the particular port like the sequence of commads to be followed to start the API server.
 
-I queried my API by running the command - "curl http://localhost:11434" first to test whether the ollama is running or not NS then I run this command - "uvicorn app:app --reload" to run the api server and then I run this command - "Invoke-RestMethod -Uri "http://127.0.0.1:8000/query?q=What is Kubernetes?" -Method Post" to get the response by sending the query through the post method. The command uses the POST method, which means the query is being sent to the server(here api server) and then the response from the ollama model will be recieved at the end. The API responded with giving the ai generated response from the model ollama.
+### Containerized API test results
 
-![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-api_g3h4i5j6)
+Testing the API after containerization proved that the RAG API is working correctly by running the container at port 8000 The difference between running locally and in Docker is that it executes in the separate environment, not in the host's system environment and the dependencies and the docker containers are isolated from the local host network. The difference is that the host runs the ollama and requests the ollama or the tinyllama services locally by the host itself and in the docker, the container itself acts as the host and asks the ollama services from the container itself, using the host IP address directly from the container  Containerization helps because, we don't need to share the tools and the other things that are required to run or use this RAG API to everyone. They can use this service with the help of the containers that executes the API and makes available to everyone without running the server and the models in their own devices.
 
-### Swagger UI exploration
-
-Swagger UI is the application interface for the api that we have created for this project. I used it to test the api endpoint method whehter it is working or not directly in the browser preventing from the manual commands to check the answer by opening the local hosting link that leads to the interface where we can see the methods if the api endpoints like in this case - POST/query and clicking the "Try it out" and entering the query and we will get the response. The best part about using Swagger UI was we are able to see how the api endpoint can truly be accessed in real time and also we can be able to see the attributes of the endpoint without using the manual curl commands and thinking how does it happened.
+![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-docker_o1p2q3r4)
 
 ---
 
-## Adding Dynamic Content
+## Building and Running the Container
 
-In this project extension, I'm going to create one api endpoint called /add to add the data to the chromDb or update the data or removing the data dynamically using the api call while running the web app without editing or adding the data to the text file in which we have stored the data and again running the embeddings creation python script every time. So, we can do this with the call of api endpoint in the url and also I'm going to run the application and check whether it is really working through the swagger UI (testing of the api endpoint).
+### Docker image build complete
 
-### Adding the /add endpoint
+Building a Docker image involves writing the instructions for how the docker image should be created, in the docker file. I verified my Docker image was built successfully by running the command - "docker image | Select-String rag-app" and it gave the output where it shown the lastest created image with the tag latest. This confirms that my API is now containerized because, the docker image which is used for to take the screen shot of the current application or for the packaging of my application, takes the current condition of my app and place it in the container by docker image using the docker file helping with the creation of the docker image.
 
-![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-api_w9x0y1z2)
+![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-docker_p9q0r1s2)
 
-### Dynamic content endpoint working
+![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-docker_x7y8z9a0)
 
-The /add endpoint allows me to add the text dynamically through the direct entry of the text in the parameters given for the /add endpoint method to enter so that it will directly add the text that we have written in the parameter cell into the chromaDB directly and automatically generating the embeddings and doing the indexing for the chunks of the data that is being stored in the database from which we have entered under the parameters textbox. This is useful because, it helps inadding the text into the database without adding the text into the separate text file and again updating the embed.py manually and executing the app again from the start using the curl commands.
+---
+
+## Pushing to Docker Hub
+
+In this project extension, I'm pushing to Docker Hub. Docker Hub is the interface where the people can tag and push their image of the application or it is a registery service for storing and sharing Docker images. Your user name becomes the part of the docker images, that they made and can be seen by the other peers or the users who wants to use this service. I'm doing this because, this is essential for sharing the work, deploying to the production, CI/CD pipelines, and learning how container registeries work which depicts the same concept as AWS ECR, Google Container Registry, etc.
+
+### Docker Hub push complete
+
+I pushed to Docker Hub by first creating the account for the docker hub to maintain the repositories that we have created or the containers and I have used the command - "docker push your-username/rag-app". This name that we have tagged to the container tells the docker to use this account and store this repository into that particular account. Docker Hub is useful because, it helps in storing the images of the app where it stores the current screen shot of the app and makes it available to the users those are in the docker hub. The advantage of pushing to a registry is that we can share our work with the people on docker hub and it gives the sevices like version control for the docker images where only the updated parts of the images gets pushed if there any changes or any creations. It enables the CI/CD where it integrates the image building and pushing those into the automated deployment pipelines (to make it ready for the deployment) so we can easily deploy to clould platforms.
+
+![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-docker_m5n6o7p8)
+
+### Pulling from Docker Hub
+
+Pulling an image from Docker Hub means downloading the pre-built-in image into the users local machine and using the app features directly from their own devices without dowloading the requied dependencies and the packages for the app to run in their local machines. They can use the services of the app from just the download or pulling of the image of the particular owner or the person who is giving the app as a service. When I ran docker pull, Docker downloaded the image from the account that we have mentioned in the command. The difference between building locally and pulling from Docker Hub is that it reduces the time and the work and also it is useful for the people who finds difficulty in doing it from the scratch and debug is any version gets wrong or any environment which the people who are beginners in this particular field and also it is useful when the running of the app in their local machine puts a huge load on their local machine and it is useful when the app is very huge.
+
+![Image](http://learn.nextwork.org/daring_turquoise_proud_goblin/uploads/ai-devops-docker_f5g6h7i8)
 
 ---
 
