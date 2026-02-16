@@ -4,6 +4,12 @@ venv/
 env/
 ENV/
 
+# Python cache
+__pycache__/
+
+# Database files
+db/
+
 # VS Code workspace settings (ignore by default)
 .vscode/
 
